@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import 'meal_details.dart';
 
-class Meals extends StatelessWidget {
-  final String title;
+class MealsScreen extends StatelessWidget {
+  final String? title;
   final List<Meal> meals;
+  final void Function(Meal) onToggledFavorite;
   void selectMeal(BuildContext context, Meal meal){
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MealDetailsScreen( meal: meal)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MealDetailsScreen( meal: meal, onToggledFavorite: onToggledFavorite,)));
   }
-  const Meals({Key? key, required this.title, required this.meals}) : super(key: key);
+  const MealsScreen({Key? key, this.title, required this.meals,required this.onToggledFavorite}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +36,13 @@ class Meals extends StatelessWidget {
         ),
       );
     }
+    if(title==null){
+      return content;
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: content,
     );

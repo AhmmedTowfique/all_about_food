@@ -2,13 +2,17 @@ import 'package:all_about_food/models/meal.dart';
 import 'package:flutter/material.dart';
 
 class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen({Key? key, required this.meal}) : super(key: key);
+   const MealDetailsScreen({Key? key, required this.meal, required this.onToggledFavorite}) : super(key: key);
   final Meal meal;
+  final void Function(Meal) onToggledFavorite;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(meal.title)),
+      appBar: AppBar(
+        title: Text(meal.title),
+        actions: [IconButton(onPressed: () {onToggledFavorite(meal);}, icon: const Icon(Icons.star))],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -23,16 +27,34 @@ class MealDetailsScreen extends StatelessWidget {
             ),
             Text(
               'ingredients',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary,fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 14,),
-            for(final ingredients in meal.ingredients)
-              Text(ingredients,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onBackground),),
-            const SizedBox(height: 24,),
-            for(final ingredients in meal.steps)
+            SizedBox(
+              height: 14,
+            ),
+            for (final ingredients in meal.ingredients)
+              Text(
+                ingredients,
+                style:
+                    Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onBackground),
+              ),
+            const SizedBox(
+              height: 24,
+            ),
+            for (final ingredients in meal.steps)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
-                child: Text(ingredients,textAlign:TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onBackground),),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                child: Text(
+                  ingredients,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                ),
               ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:all_about_food/dummy_data.dart';
 import 'package:all_about_food/screens/meals.dart';
+import 'package:all_about_food/screens/tabs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:all_about_food/screens/categories.dart';
@@ -25,7 +26,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: theme,
-        home: const CategoriesScreen()
+        home: const TabsScreen()
     );
   }
 }
