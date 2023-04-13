@@ -6,10 +6,11 @@ import 'package:all_about_food/widgets/category_grid_item.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key, required this.onToggledFavorite}) : super(key: key);
+  const CategoriesScreen({Key? key, required this.onToggledFavorite, required this.availableMeals}) : super(key: key);
   final void Function(Meal) onToggledFavorite;
+  final List<Meal> availableMeals;
   void _selectCategory(BuildContext context, Category category) {
-    var filteredMeals = dummyMeals.where((meal) => meal.categories.contains(category.id)).toList();
+    var filteredMeals = availableMeals.where((meal) => meal.categories.contains(category.id)).toList();
     Navigator.of(context).push(MaterialPageRoute(
         builder: (ctx) => MealsScreen(title: category.title, meals: filteredMeals, onToggledFavorite: onToggledFavorite))); //Navigator.push(context, route)
   }
